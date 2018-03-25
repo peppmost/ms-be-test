@@ -1,0 +1,32 @@
+{% extends '@MadisoftStudents/base.html.twig' %}
+{% block body %}
+    {% include '@MadisoftStudents/header.html.twig' %}
+    <div class="container">
+        {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+        {% form_theme form.schoolGrades 'bootstrap_3_layout.html.twig' %}
+        {{ form_start(form) }}
+
+            {{ form_row(form.lastname) }}
+            {{ form_row(form.firstname) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.schoolSubject) }}
+
+            <div class="schoolGrades-wrapper" data-prototype="{{ form_widget(form.schoolGrades.vars.prototype)|e('html_attr') }}"
+                 data-index="{{ form.schoolGrades|length }}">
+
+                {{ form_row(form.schoolGrades) }}
+
+                <a href="#" class="js-schoolGrade-add">
+                    <span class="fa fa-plus-circle"></span>Aggiungi Voto
+                </a>
+            </div>
+
+        {{ form_end(form)  }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts '@MadisoftStudentsBundle/Resources/public/js/studentEdit.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

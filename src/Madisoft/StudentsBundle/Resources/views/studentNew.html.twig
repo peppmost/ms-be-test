@@ -1,0 +1,8 @@
+{% extends '@MadisoftStudents/base.html.twig' %}
+{% block body %}
+    {% include '@MadisoftStudents/header.html.twig' %}
+    <div class="container">
+        {% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+        {{ form(form, {'method': 'POST'}) }}
+    </div>
+{% endblock %}

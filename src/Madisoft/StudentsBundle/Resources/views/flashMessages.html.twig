@@ -1,0 +1,12 @@
+{% for label, messages in app.flashes() %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible text-center fade show" role="alert">
+            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">
+                    <i class="fa fa-times"></i>
+                </span>
+            </button>
+            <span class="message">{{ message }}</span>
+        </div>
+    {% endfor %}
+{% endfor %}

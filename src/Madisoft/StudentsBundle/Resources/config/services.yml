@@ -1,0 +1,43 @@
+services:
+#    madisoft_students.example:
+#        class: Madisoft\StudentsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    # makes classes in src/AppBundle available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    Madisoft\StudentsBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    Madisoft\StudentsBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Madisoft\StudentsBundle\Entity\Manager\StudentManager:
+        arguments: ["@doctrine.orm.entity_manager", Madisoft\StudentsBundle\Entity\Student]
+        public: true
+        autowire: false
+        autoconfigure: false
+
+    madisoft_students.school_grade_configuration_manager:
+        class: Madisoft\StudentsBundle\Entity\Manager\SchoolGradeConfigurationManager
+        arguments: ["@doctrine.orm.entity_manager", Madisoft\StudentsBundle\Entity\SchoolGradeConfiguration]
+        public: true
+        autowire: false
+        autoconfigure: false
+
+    madisoft_students.school_grade_subscriber:
+        class: Madisoft\StudentsBundle\Form\EventListener\SchoolGradeSubscriber
+        arguments: ['@madisoft_students.school_grade_configuration_manager']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    madisoft_students.school_grade_form:
+        class: Madisoft\StudentsBundle\Form\SchoolGradeType
+        arguments: ['@madisoft_students.school_grade_subscriber']
+        tags:
+            - { name: form.type }
+

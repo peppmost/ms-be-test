@@ -1,0 +1,5 @@
+madisoft_students:
+    resource: "@MadisoftStudentsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

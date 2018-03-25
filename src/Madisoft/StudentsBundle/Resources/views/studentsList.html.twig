@@ -1,0 +1,22 @@
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Cognome</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Materia</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+            <tr>
+                <td>{{ student.lastname }}</td>
+                <td>{{ student.firstname }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.schoolSubject.title }}</td>
+                <td><a href="{{ path('madisoft_students_edit', {'student': student.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

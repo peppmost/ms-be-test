@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var $wrapper = $('.schoolGrades-wrapper');
-    $wrapper.on('click', '.js-schoolGrade-add', function(e) {
+    $('.js-schoolGrade-add').on('click', function(e) {
 
         e.preventDefault();
         // Get the data-prototype explained earlier

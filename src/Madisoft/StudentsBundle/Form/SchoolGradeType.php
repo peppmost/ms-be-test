@@ -6,6 +6,7 @@ use Madisoft\StudentsBundle\Form\EventListener\SchoolGradeSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,14 +25,25 @@ class SchoolGradeType extends AbstractType
     {
         $builder
             ->add('grade',null, [
-                'label' => 'Valutazione'
+                'label' => 'Valutazione',
+                'required' => true,
+                'attr' => [
+                    'class' => 'sg-grade'
+                ]
             ])
-            ->add('description',null, [
-                'label' => 'Descrizione'
+            ->add('description',TextareaType::class, [
+                'label' => 'Descrizione',
+                'required' => true,
+                'attr' => [
+                    'class' => 'sg-description'
+                ]
             ])
             ->add('averageFlag',CheckboxType::class, [
                 'label' => 'Media',
-                'required' => false
+                'required' => false,
+                'attr' => [
+                    'class' => 'sg-averageCheckbox'
+                ]
             ])
             //->add('student', HiddenType::class)
             //->add('schoolSubject', HiddenType::class)

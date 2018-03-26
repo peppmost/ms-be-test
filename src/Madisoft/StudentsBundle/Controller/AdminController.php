@@ -41,6 +41,8 @@ class AdminController extends Controller
             $studentData = $form->getData();
             $student = $sm->save($studentData);
             $this->addFlash('success', 'Studente modificato con successo');
+            return $this->redirectToRoute('madisoft_students_edit', ['student' => $student->getId()]);
+
         }
 
         return $this->render('@MadisoftStudents/studentEdit.html.twig',[

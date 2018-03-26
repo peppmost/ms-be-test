@@ -2,6 +2,8 @@
 
 namespace Madisoft\StudentsBundle\Form\EventListener;
 
+use Madisoft\StudentsBundle\Entity\SchoolGrade;
+use Madisoft\StudentsBundle\Entity\Student;
 use Madisoft\StudentsBundle\Form\SchoolGradeType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
@@ -20,6 +22,7 @@ class EditStudentSubscriber implements EventSubscriberInterface
 
     public function preSetData(FormEvent $event)
     {
+        /** @var Student $student */
         $student = $event->getData();
         $form = $event->getForm();
 
@@ -32,7 +35,9 @@ class EditStudentSubscriber implements EventSubscriberInterface
                     'label' => false,
                 ],
                 'allow_add' => true,
-                'by_reference' => false
+                'by_reference' => false,
+                'prototype' => true,
+                'prototype_data' => $student->getSchoolSubject()->getSchoolGradeConfiguration()
             ]);
         }
     }

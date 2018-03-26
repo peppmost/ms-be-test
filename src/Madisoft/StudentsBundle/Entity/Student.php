@@ -68,6 +68,7 @@ class Student
      *
      * @Assert\Valid
      * @ORM\OneToMany(targetEntity="SchoolGrade", mappedBy="student", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"updatedAt" = "ASC"})
      */
     private $schoolGrades;
 

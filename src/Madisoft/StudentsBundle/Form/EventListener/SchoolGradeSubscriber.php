@@ -5,6 +5,7 @@ namespace Madisoft\StudentsBundle\Form\EventListener;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Madisoft\StudentsBundle\Entity\Manager\SchoolGradeConfigurationManager;
 use Madisoft\StudentsBundle\Entity\SchoolGrade;
+use Madisoft\StudentsBundle\Entity\SchoolGradeConfiguration;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -31,10 +32,12 @@ class SchoolGradeSubscriber implements EventSubscriberInterface
         /** @var ClassMetadata $fieldNames */
         $fieldNames = $this->sgcm->getEntityFields();
         /** @var SchoolGrade $schoolGrade */
-        $schoolGrade = $event->getData();
-        if ($schoolGrade){
+        $data = $event->getData();
+        $form = $event->getForm();
 
-            $form = $event->getForm();
+        if ($data instanceof SchoolGrade){
+
+            $schoolGrade = $data;
             $student = $schoolGrade->getStudent();
 
             if ($student && null !== $student->getId()) {
@@ -49,7 +52,17 @@ class SchoolGradeSubscriber implements EventSubscriberInterface
                     }
                 }
             }
-        }
+        }elseif ($data instanceof SchoolGradeConfiguration){
 
+            $schoolGradeConfiguration = $data;
+            foreach ($fieldNames->getFieldNames() as $fieldName ){
+
+                $getter = 'get'.ucwords($fieldName);
+                if(!$schoolGradeConfiguration->$getter()){
+                    $form->remove($fieldName);
+                }
+            }
+            $event->setData(new SchoolGrade());
+        }
     }
 }

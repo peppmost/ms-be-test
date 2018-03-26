@@ -11,15 +11,29 @@
             {{ form_row(form.email) }}
             {{ form_row(form.schoolSubject) }}
 
-            <div class="schoolGrades-wrapper" data-prototype="{{ form_widget(form.schoolGrades.vars.prototype)|e('html_attr') }}"
+            <h3>Voti</h3>
+            <div class="schoolGrades-wrapper row" data-prototype="{{ form_widget(form.schoolGrades.vars.prototype)|e('html_attr') }}"
                  data-index="{{ form.schoolGrades|length }}">
-
-                {{ form_row(form.schoolGrades) }}
-
-                <a href="#" class="js-schoolGrade-add">
-                    <span class="fa fa-plus-circle"></span>Aggiungi Voto
-                </a>
+                    {% for grade in form.schoolGrades %}
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{ grade.vars.value.updatedAt|date('d/m/Y H:i') }}
+                                    </h5>
+                                    <div class="card-text">
+                                    {% for field in grade %}
+                                        <div class="col-md-12">{{ form_row(field) }}</div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
             </div>
+            <a href="#" class="js-schoolGrade-add">
+                <span class="fa fa-plus-circle"></span>Aggiungi Voto
+            </a>
 
         {{ form_end(form)  }}
     </div>

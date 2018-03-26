@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="school_grade", indexes={@ORM\Index(name="student_id", columns={"student_id"}), @ORM\Index(name="school_subject_id", columns={"school_subject_id"})})
  * @ORM\Entity(repositoryClass="\Madisoft\StudentsBundle\Repository\SchoolGradeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class SchoolGrade
 {
@@ -49,6 +50,55 @@ class SchoolGrade
      * @ORM\Column(name="average_flag", type="boolean", nullable=true)
      */
     private $averageFlag;
+
+    /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return datetime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param datetime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
 
     /**
      * @var \Madisoft\StudentsBundle\Entity\Student
@@ -200,5 +250,23 @@ class SchoolGrade
     public function getSchoolSubject()
     {
         return $this->schoolSubject;
+    }
+
+
+    //Life Cycle Callbacks
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createDates()
+    {
+        $date = new \DateTime('now');
+        if($this->getCreatedAt() == null){
+            $this->setCreatedAt($date);
+        }
+        $this->setUpdatedAt($date);
+
+        return $this;
     }
 }

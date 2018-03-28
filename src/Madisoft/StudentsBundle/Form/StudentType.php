@@ -19,26 +19,28 @@ class StudentType extends AbstractType
     {
         $builder
             ->add('firstname', null, [
-                'label' => 'Nome'
+                'label' => 'ms_students.firstname'
             ])
             ->add('lastname', null, [
-                'label' => 'Cognome'
+                'label' => 'ms_students.lastname'
             ])
             ->add('email', null, [
-                'label' => 'Email'
+                'label' => 'ms_students.email'
             ])
             ->add('schoolSubject', EntityType::class, [
                 'class' => 'Madisoft\StudentsBundle\Entity\SchoolSubject',
                 'choice_label' => 'title',
-                'label' => 'Materia',
-                'placeholder' => 'Seleziona una materia'
+                'label' => 'ms_students.subject',
+                'placeholder' => 'ms_students.subject_placeholder'
             ])
         ;
 
         $builder->addEventSubscriber(new EditStudentSubscriber());
 
-        $builder->add('save', SubmitType::class, array(
-            'attr' => array('class' => 'save')));
+        $builder->add('save', SubmitType::class, [
+            'label' => 'ms_students.button.save',
+            'attr' => ['class' => 'save']
+        ]);
     }/**
      * {@inheritdoc}
      */

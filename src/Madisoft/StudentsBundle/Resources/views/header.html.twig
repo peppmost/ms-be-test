@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">Studenti Admin</a>
+        <a class="navbar-brand" href="#">{{ "ms_students.title"|trans }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item {{ app.request.attributes.get('_route') == 'madisoft_students_index' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ path('madisoft_students_index') }}">Lista Studenti</a>
+                    <a class="nav-link" href="{{ path('madisoft_students_index') }}">{{ "ms_students.students_list"|trans }}</a>
                 </li>
                 <li class="nav-item {{ app.request.attributes.get('_route') == 'madisoft_students_new' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ path('madisoft_students_new') }}">Nuovo Studente</a>
+                    <a class="nav-link" href="{{ path('madisoft_students_new') }}">{{ "ms_students.new_student"|trans }}</a>
                 </li>
             </ul>
         </div>

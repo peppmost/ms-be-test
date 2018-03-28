@@ -11,7 +11,7 @@
             {{ form_row(form.email) }}
             {{ form_row(form.schoolSubject) }}
 
-            <h3>Voti</h3>
+            <h3>{{ 'ms_students.grades'|trans }}</h3>
             <div class="schoolGrades-wrapper row" data-prototype="{{ form_widget(form.schoolGrades.vars.prototype)|e('html_attr') }}"
                  data-index="{{ form.schoolGrades|length }}">
                     {% for grade in form.schoolGrades %}
@@ -19,7 +19,7 @@
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        {{ grade.vars.value.updatedAt|date('d/m/Y H:i') }}
+                                        {{ grade.vars.value.updatedAt|date('d/m/Y H:i:s') }}
                                     </h5>
                                     <div class="card-text">
                                     {% for field in grade %}

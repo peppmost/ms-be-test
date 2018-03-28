@@ -2,6 +2,7 @@
 
 namespace Madisoft\StudentsBundle\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -258,10 +259,13 @@ class SchoolGrade
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
+     * @param LifecycleEventArgs $eventArgs
+     * @return $this
      */
-    public function createDates()
+    public function createDates(LifecycleEventArgs $eventArgs)
     {
         $date = new \DateTime('now');
+
         if($this->getCreatedAt() == null){
             $this->setCreatedAt($date);
         }

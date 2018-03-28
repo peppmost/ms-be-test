@@ -25,21 +25,21 @@ class SchoolGradeType extends AbstractType
     {
         $builder
             ->add('grade',null, [
-                'label' => 'Valutazione',
+                'label' => 'ms_students.grade',
                 'required' => true,
                 'attr' => [
                     'class' => 'sg-grade'
                 ]
             ])
             ->add('description',TextareaType::class, [
-                'label' => 'Descrizione',
+                'label' => 'ms_students.description',
                 'required' => true,
                 'attr' => [
                     'class' => 'sg-description'
                 ]
             ])
             ->add('averageFlag',CheckboxType::class, [
-                'label' => 'Media',
+                'label' => 'ms_students.averageFlag',
                 'required' => false,
                 'attr' => [
                     'class' => 'sg-averageCheckbox'

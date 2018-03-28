@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class AdminController extends Controller
 {
@@ -28,10 +29,15 @@ class AdminController extends Controller
      * @param Request $request
      * @param Student $student
      * @param StudentManager $sm
-     * @ParamConverter("student", class="MadisoftStudentsBundle:Student")
+     * @param TranslatorInterface $trans
      * @return \Symfony\Component\HttpFoundation\Response
+     * @ParamConverter("student", class="MadisoftStudentsBundle:Student")
      */
-    public function editStudentAction(Request $request, Student $student, StudentManager $sm)
+    public function editStudentAction(Request $request,
+                                      Student $student,
+                                      StudentManager $sm,
+                                      TranslatorInterface $trans
+    )
     {
         $form = $this->createForm('Madisoft\StudentsBundle\Form\StudentType', $student);
 
@@ -40,7 +46,7 @@ class AdminController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             $studentData = $form->getData();
             $student = $sm->save($studentData);
-            $this->addFlash('success', 'Studente modificato con successo');
+            $this->addFlash('success', $trans->trans('ms_students.flash.student_updated'));
             return $this->redirectToRoute('madisoft_students_edit', ['student' => $student->getId()]);
 
         }
@@ -54,9 +60,13 @@ class AdminController extends Controller
      * @Route("/student/new", name="madisoft_students_new")
      * @param Request $request
      * @param StudentManager $sm
+     * @param TranslatorInterface $trans
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newStudentAction(Request $request, StudentManager $sm)
+    public function newStudentAction(Request $request,
+                                     StudentManager $sm,
+                                     TranslatorInterface $trans
+    )
     {
         $student = $sm->createStudent();
         $form = $this->createForm('Madisoft\StudentsBundle\Form\StudentType', $student);
@@ -65,7 +75,7 @@ class AdminController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             $studentData = $form->getData();
             $student = $sm->save($studentData);
-            $this->addFlash('success', 'Nuovo studente creato con successo');
+            $this->addFlash('success', $trans->trans('ms_students.flash.student_created'));
             return $this->redirectToRoute('madisoft_students_edit', ['student' => $student->getId()]);
         }
 

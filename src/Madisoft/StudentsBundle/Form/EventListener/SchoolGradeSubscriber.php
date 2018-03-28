@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class SchoolGradeSubscriber implements EventSubscriberInterface
 {
-    private $sgcm;
+    protected $sgcm;
 
     public function __construct(SchoolGradeConfigurationManager $sgcm) {
         $this->sgcm = $sgcm;

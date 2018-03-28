@@ -4,6 +4,7 @@ namespace Madisoft\StudentsBundle\Entity\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Madisoft\StudentsBundle\Entity\SchoolGrade;
 use Madisoft\StudentsBundle\Entity\Student;
 use Madisoft\StudentsBundle\Form\StudentType;
 
@@ -21,9 +22,33 @@ class StudentManager extends AbstractEntityManager
         return $student;
     }
 
-    public function getStudentEditForm(Student $student, StudentType $studentForm)
+    /**
+     * @param Student $student
+     * @return mixed
+     */
+    public function calculateGPA($student)
     {
         $schoolGradeConfiguration = $student->getSchoolSubject()->getSchoolGradeConfiguration();
 
+        if($schoolGradeConfiguration->getAverageFlag() === false ){
+
+            return false;
+        }
+
+        $schoolGrades = $student->getSchoolGrades();
+
+        $gpa = false;
+        $totalSchoolGrades = 0;
+        $schoolGradesSum = 0;
+
+        /** @var SchoolGrade $schoolGrade */
+        foreach ($schoolGrades as $schoolGrade){
+
+            $averageFlag = $schoolGrade->getAverageFlag();
+            $totalSchoolGrades += $averageFlag === true ? 1 : 0;
+            $schoolGradesSum += $averageFlag === true ? $schoolGrade->getGrade() : 0;
+        }
+        $gpa = round($schoolGradesSum / $totalSchoolGrades, 2);
+        return $gpa;
     }
 }

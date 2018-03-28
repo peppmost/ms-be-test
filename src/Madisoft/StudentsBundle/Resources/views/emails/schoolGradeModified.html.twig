@@ -1,0 +1,5 @@
+<h2>{{ 'ms_students.email.grade_variation_title'|trans({'%student%': schoolGrade.student}) }}</h2>
+<p>{{ 'ms_students.email.grade_variation_base_text'|trans({'%school_grade_id%': schoolGrade.id}) }}</p>
+{% if( gpa < average_alert|number_format ) %}
+    <p>{{ 'ms_students.email.grade_variation_alert_text'|trans({'gpa': gpa}) }}</p>
+{% endif %}

@@ -9,6 +9,7 @@ imports:
 parameters:
     locale: it
     average_alert: 4
+    default_email_from: 'info@students.it'
 
 framework:
     #esi: ~

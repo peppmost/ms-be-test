@@ -18,7 +18,7 @@ services:
 
     madisoft_students.mail_manager:
         class: Madisoft\StudentsBundle\Utils\MailManager
-        arguments: ['@mailer', '@twig']
+        arguments: ['@mailer', '@twig', '@service_container']
         public: true
         autowire: false
         autoconfigure: false
@@ -50,6 +50,6 @@ services:
 
     madisoft_students.school_grade_event_subscriber:
         class: Madisoft\StudentsBundle\Doctrine\SchoolGradeEventSubscriber
-        arguments: ['@service_container', '@madisoft_students.mail_manager']
+        arguments: ['@service_container', '@madisoft_students.mail_manager', '@translator']
         tags:
             - { name: doctrine.event_subscriber, connection: default }

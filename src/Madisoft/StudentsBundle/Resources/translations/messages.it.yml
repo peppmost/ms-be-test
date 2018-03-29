@@ -16,7 +16,8 @@ ms_students:
     flash:
         student_created: Studente creato con successo
         student_updated: Studente modificato con successo
-    email:
+    emails:
+        grade_variation_subject: Variazione di un voto
         grade_variation_title: Ciao %student%,
-        grade_variation_base_text: c’è una variazione nel voto con id %school_grade_id%. Entra nella tua area riservata per vederla.”.
-        grade_variation_alert_text: La tua media voti è %gpa%. Sei a rischio di bocciatura”.
+        grade_variation_base_text: c’è una variazione nel voto con id %school_grade_id%. Entra nella tua area riservata per vederla.
+        grade_variation_alert_text: La tua media voti è %gpa%. Sei a rischio di bocciatura.

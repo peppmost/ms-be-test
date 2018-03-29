@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 
 class SchoolGradeSubscriber implements EventSubscriberInterface
 {
@@ -29,8 +30,7 @@ class SchoolGradeSubscriber implements EventSubscriberInterface
 
     public function preSetData(FormEvent $event)
     {
-        /** @var ClassMetadata $fieldNames */
-        $fieldNames = $this->sgcm->getEntityFields();
+
         /** @var SchoolGrade $schoolGrade */
         $data = $event->getData();
         $form = $event->getForm();
@@ -43,26 +43,26 @@ class SchoolGradeSubscriber implements EventSubscriberInterface
             if ($student && null !== $student->getId()) {
 
                 $schoolGradeConfiguration = $student->getSchoolSubject()->getSchoolGradeConfiguration();
-
-                foreach ($fieldNames->getFieldNames() as $fieldName ){
-
-                    $getter = 'get'.ucwords($fieldName);
-                    if(!$schoolGradeConfiguration->$getter()){
-                        $form->remove($fieldName);
-                    }
-                }
+                $this->removeUnconfiguredFields($form, $schoolGradeConfiguration);
             }
         }elseif ($data instanceof SchoolGradeConfiguration){
 
             $schoolGradeConfiguration = $data;
-            foreach ($fieldNames->getFieldNames() as $fieldName ){
-
-                $getter = 'get'.ucwords($fieldName);
-                if(!$schoolGradeConfiguration->$getter()){
-                    $form->remove($fieldName);
-                }
-            }
+            $this->removeUnconfiguredFields($form, $schoolGradeConfiguration);
             $event->setData(new SchoolGrade());
+        }
+    }
+
+    protected function removeUnconfiguredFields(FormInterface $form, SchoolGradeConfiguration $schoolGradeConfiguration)
+    {
+        /** @var ClassMetadata $fieldNames */
+        $fieldNames = $this->sgcm->getEntityFields();
+        foreach ($fieldNames->getFieldNames() as $fieldName ){
+
+            $getter = 'get'.ucwords($fieldName);
+            if(!$schoolGradeConfiguration->$getter()){
+                $form->remove($fieldName);
+            }
         }
     }
 }

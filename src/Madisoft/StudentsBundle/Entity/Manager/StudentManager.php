@@ -30,7 +30,7 @@ class StudentManager extends AbstractEntityManager
     {
         $schoolGradeConfiguration = $student->getSchoolSubject()->getSchoolGradeConfiguration();
 
-        if($schoolGradeConfiguration->getAverageFlag() === false ){
+        if($schoolGradeConfiguration->getGrade() === false){
 
             return false;
         }

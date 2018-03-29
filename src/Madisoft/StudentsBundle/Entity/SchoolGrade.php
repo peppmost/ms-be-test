@@ -262,7 +262,7 @@ class SchoolGrade
      * @param LifecycleEventArgs $eventArgs
      * @return $this
      */
-    public function createDates(LifecycleEventArgs $eventArgs)
+    public function createAndUpdateDates(LifecycleEventArgs $eventArgs)
     {
         $date = new \DateTime('now');
 
@@ -270,6 +270,12 @@ class SchoolGrade
             $this->setCreatedAt($date);
         }
         $this->setUpdatedAt($date);
+
+        $schoolGradeConfiguration = $this->getStudent()->getSchoolSubject()->getSchoolGradeConfiguration();
+        if($schoolGradeConfiguration->getGrade() && !$schoolGradeConfiguration->getAverageFlag()){
+
+            $this->setAverageFlag(true);
+        }
 
         return $this;
     }

@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Doctrine\Common\EventSubscriber;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SchoolGradeEventSubscriber implements EventSubscriber
 {
@@ -20,10 +21,16 @@ class SchoolGradeEventSubscriber implements EventSubscriber
 
     protected $mailManager;
 
-    public function __construct(Container $container, MailManager $mailManager)
+    protected $translator;
+
+    public function __construct(Container $container,
+                                MailManager $mailManager,
+                                TranslatorInterface $translator
+    )
     {
         $this->container = $container;
         $this->mailManager = $mailManager;
+        $this->translator = $translator;
     }
 
     public function getSubscribedEvents()
@@ -54,9 +61,8 @@ class SchoolGradeEventSubscriber implements EventSubscriber
             'gpa' => $gpa
         ];
 
-        $this->mailManager->setEmailFrom('peppmost@gmail.com');
         $this->mailManager->setEmailTo('peppmost@gmail.com');
-        $this->mailManager->setEmailSubject('Mail mpppp');
+        $this->mailManager->setEmailSubject($this->translator->trans('ms_students.emails.grade_variation_subject'));
         $this->mailManager->setEmailTemplateHtml('@MadisoftStudents/emails/schoolGradeModified.html.twig');
         $this->mailManager->setEmailTemplateText('@MadisoftStudents/emails/schoolGradeModified.html.twig');
         $this->mailManager->setParameters($parameters);

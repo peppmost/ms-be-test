@@ -8,6 +8,8 @@ class MailManager
 
     protected $templateManager;
 
+    protected $container;
+
     protected $emailSubject;
 
     protected $emailFrom;
@@ -21,10 +23,13 @@ class MailManager
     protected $parameters;
 
 
-    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $templateManager)
+    public function __construct(\Swift_Mailer $mailer,
+                                \Twig_Environment $templateManager,
+                                \Symfony\Component\DependencyInjection\Container $container)
     {
         $this->mailer = $mailer;
         $this->templateManager = $templateManager;
+        $this->container = $container;
     }
 
     public function sendEmail()
@@ -65,7 +70,7 @@ class MailManager
      */
     public function getEmailFrom()
     {
-        return $this->emailFrom;
+        return $this->emailFrom ? $this->emailFrom : $this->container->getParameter('default_email_from');
     }
 
     /**

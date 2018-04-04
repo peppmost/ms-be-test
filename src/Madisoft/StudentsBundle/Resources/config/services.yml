@@ -53,3 +53,7 @@ services:
         arguments: ['@service_container', '@madisoft_students.mail_manager', '@translator']
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    Madisoft\StudentsBundle\DataFixtures\:
+        resource: '../../DataFixtures'
+        tags: ['doctrine.fixtures.orm']

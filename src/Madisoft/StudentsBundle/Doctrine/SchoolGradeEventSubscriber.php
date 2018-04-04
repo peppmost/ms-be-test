@@ -61,7 +61,7 @@ class SchoolGradeEventSubscriber implements EventSubscriber
             'gpa' => $gpa
         ];
 
-        $this->mailManager->setEmailTo('peppmost@gmail.com');
+        $this->mailManager->setEmailTo($student->getEmail());
         $this->mailManager->setEmailSubject($this->translator->trans('ms_students.emails.grade_variation_subject'));
         $this->mailManager->setEmailTemplateHtml('@MadisoftStudents/emails/schoolGradeModified.html.twig');
         $this->mailManager->setEmailTemplateText('@MadisoftStudents/emails/schoolGradeModified.html.twig');

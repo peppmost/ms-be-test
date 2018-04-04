@@ -5,12 +5,14 @@ namespace Madisoft\StudentsBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Student
  *
  * @ORM\Table(name="student", indexes={@ORM\Index(name="school_subject_id", columns={"school_subject_id"})})
  * @ORM\Entity(repositoryClass="\Madisoft\StudentsBundle\Repository\StudentRepository")
+ * @UniqueEntity("email")
  */
 class Student
 {

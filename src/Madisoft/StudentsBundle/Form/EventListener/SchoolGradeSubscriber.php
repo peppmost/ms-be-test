@@ -17,10 +17,17 @@ class SchoolGradeSubscriber implements EventSubscriberInterface
 {
     protected $sgcm;
 
+    /**
+     * SchoolGradeSubscriber constructor.
+     * @param SchoolGradeConfigurationManager $sgcm
+     */
     public function __construct(SchoolGradeConfigurationManager $sgcm) {
         $this->sgcm = $sgcm;
     }
 
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
@@ -28,6 +35,9 @@ class SchoolGradeSubscriber implements EventSubscriberInterface
         return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function preSetData(FormEvent $event)
     {
 
@@ -53,6 +63,10 @@ class SchoolGradeSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param FormInterface $form
+     * @param SchoolGradeConfiguration $schoolGradeConfiguration
+     */
     protected function removeUnconfiguredFields(FormInterface $form, SchoolGradeConfiguration $schoolGradeConfiguration)
     {
         /** @var ClassMetadata $fieldNames */

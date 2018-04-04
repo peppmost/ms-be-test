@@ -10,11 +10,18 @@ use Madisoft\StudentsBundle\Form\StudentType;
 
 class StudentManager extends AbstractEntityManager
 {
+    /**
+     * @param array $order
+     * @return array
+     */
     public function getStudentsList(array $order = ['lastname' => 'ASC'])
     {
         return $this->getRepository()->findBy([], $order);
     }
 
+    /**
+     * @return mixed
+     */
     public function createStudent()
     {
         $class = $this->getClass();

@@ -13,6 +13,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SchoolGradeType extends AbstractType
 {
     private $schoolGradeSubscriber;
+
+    /**
+     * SchoolGradeType constructor.
+     * @param SchoolGradeSubscriber $schoolGradeSubscriber
+     */
     public function __construct(SchoolGradeSubscriber $schoolGradeSubscriber)
     {
         $this->schoolGradeSubscriber = $schoolGradeSubscriber;

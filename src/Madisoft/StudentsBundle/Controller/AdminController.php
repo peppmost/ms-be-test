@@ -13,6 +13,8 @@ use Symfony\Component\Translation\TranslatorInterface;
 class AdminController extends Controller
 {
     /**
+     *
+     *
      * @Route("/", name="madisoft_students_index")
      * @param StudentManager $sm
      * @return \Symfony\Component\HttpFoundation\Response

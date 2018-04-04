@@ -23,6 +23,12 @@ class MailManager
     protected $parameters;
 
 
+    /**
+     * MailManager constructor.
+     * @param \Swift_Mailer $mailer
+     * @param \Twig_Environment $templateManager
+     * @param \Symfony\Component\DependencyInjection\Container $container
+     */
     public function __construct(\Swift_Mailer $mailer,
                                 \Twig_Environment $templateManager,
                                 \Symfony\Component\DependencyInjection\Container $container)
@@ -32,6 +38,9 @@ class MailManager
         $this->container = $container;
     }
 
+    /**
+     *
+     */
     public function sendEmail()
     {
         $message = new \Swift_Message();

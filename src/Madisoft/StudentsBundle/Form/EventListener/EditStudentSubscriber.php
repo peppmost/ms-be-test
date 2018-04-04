@@ -11,6 +11,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EditStudentSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         // Tells the dispatcher that you want to listen on the form.pre_set_data

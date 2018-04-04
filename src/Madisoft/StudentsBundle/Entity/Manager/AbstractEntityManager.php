@@ -18,27 +18,45 @@ abstract class AbstractEntityManager
 
     protected $class;
 
+    /**
+     * AbstractEntityManager constructor.
+     * @param EntityManager $em
+     * @param $class
+     */
     public function __construct(EntityManager $em, $class) {
         $this->em = $em;
         $this->class = $class;
         $this->repository = $em->getRepository($class);
     }
 
+    /**
+     * @return mixed
+     */
     public function getClass()
     {
         return $this->class;
     }
 
+    /**
+     * @return EntityRepository
+     */
     public function getRepository()
     {
         return $this->repository;
     }
 
+    /**
+     * @return mixed
+     */
     public function getEm()
     {
         return $this->getEm();
     }
 
+    /**
+     * @param $object
+     * @return mixed
+     */
     public function save($object)
     {
         $this->em->persist($object);
@@ -46,6 +64,9 @@ abstract class AbstractEntityManager
         return $object;
     }
 
+    /**
+     * @return \Doctrine\ORM\Mapping\ClassMetadata
+     */
     public function getEntityFields()
     {
         return $this->em->getClassMetadata($this->class);

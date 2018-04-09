@@ -29,6 +29,13 @@ class StudentManager extends AbstractEntityManager
         return $student;
     }
 
+    public function findStudentByEmail($email)
+    {
+        return $this->repository->findOneBy([
+            'email' => $email
+        ]);
+    }
+
     /**
      * @param Student $student
      * @return mixed

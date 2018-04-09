@@ -23,6 +23,12 @@ class SchoolGradeEventSubscriber implements EventSubscriber
 
     protected $translator;
 
+    /**
+     * SchoolGradeEventSubscriber constructor.
+     * @param Container $container
+     * @param MailManager $mailManager
+     * @param TranslatorInterface $translator
+     */
     public function __construct(Container $container,
                                 MailManager $mailManager,
                                 TranslatorInterface $translator
@@ -33,6 +39,9 @@ class SchoolGradeEventSubscriber implements EventSubscriber
         $this->translator = $translator;
     }
 
+    /**
+     * @return array
+     */
     public function getSubscribedEvents()
     {
         return [
@@ -41,10 +50,16 @@ class SchoolGradeEventSubscriber implements EventSubscriber
     }
 
     /**
-     * @param FormEvent $event
+     * @param LifecycleEventArgs $eventArgs
+     * @internal param FormEvent $event
      */
     public function postUpdate(LifecycleEventArgs $eventArgs)
     {
+        $entity = $eventArgs->getEntity();
+
+        if (!$entity instanceof SchoolGrade) {
+            return;
+        }
         /** @var SchoolGrade $schoolGrade */
         $schoolGrade = $eventArgs->getObject();
         $student = $schoolGrade->getStudent();
@@ -52,6 +67,10 @@ class SchoolGradeEventSubscriber implements EventSubscriber
 
     }
 
+    /**
+     * @param Student $student
+     * @param LifecycleEventArgs $eventArgs
+     */
     private function sendEmail(Student $student, LifecycleEventArgs $eventArgs)
     {
         $sm = $this->container->get('Madisoft\StudentsBundle\Entity\Manager\StudentManager');

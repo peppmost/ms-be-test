@@ -1,13 +1,12 @@
-<<<<<<< HEAD
-students
-========
 
-A Symfony project created on March 16, 2018, 11:00 am.
+Students
 =======
-# ms-be-test
->>>>>>> 611d6ff3d2a6d2d03f61853fd4725fc1d6c13149
 
+$ git clone https://github.com/peppmost/ms-be-test.git .<br>
+$ composer install<br>
+$ php ./bin/console assetic:dump --env=prod --no-debug<br>
 
-composer install
+<b>Test</b>
 
-php bin/console assetic:dump --env=prod --no-debug
+$ php ./bin/console doctrine:database:create --env=test --if-not-exists && php ./bin/console doctrine:schema:drop --force --env=test && php ./bin/console doctrine:schema:create --env=test && php ./bin/console doctrine:schema:update --force --env=test && php ./bin/console doctrine:fixtures:load --env=test --no-interaction
+$ ./vendor/bin/phpunit

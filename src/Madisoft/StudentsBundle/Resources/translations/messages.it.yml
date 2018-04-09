@@ -1,13 +1,13 @@
 ms_students:
-    title: 'Students'
-    students_list: 'Lista Studenti'
-    new_student: 'Nuovo Studente'
+    title: Students
+    students_list: Lista Studenti
+    new_student: Nuovo Studente
     firstname: Nome
     lastname: Cognome
     email: Email
     subject: Materia
-    subject_placeholder: 'Seleziona una materia'
-    grade: Valutazioni
+    subject_placeholder: Seleziona una materia
+    grade: Valutazione
     grades: Voti
     description: Descrizione
     averageFlag: In Media
